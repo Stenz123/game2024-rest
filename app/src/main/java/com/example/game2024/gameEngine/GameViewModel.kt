@@ -1,5 +1,6 @@
 package com.example.game2024.gameEngine
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,9 +21,10 @@ class GameViewModel: ViewModel() {
 
     private fun fetchGameState() {
         viewModelScope.launch {
-            while (state.lastPlayer != playerModel.id) {
+            while (state.lastPlayer == playerModel.id) {
                 try {
                     state = RetrofitInstance.api.getGameState()
+                    Log.d("GameViewModel", "fetchGameState: $state")
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

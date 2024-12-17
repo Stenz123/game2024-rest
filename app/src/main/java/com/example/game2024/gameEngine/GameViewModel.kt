@@ -19,6 +19,10 @@ class GameViewModel: ViewModel() {
         fetchGameState()
     }
 
+    fun isActivePlayer(): Boolean {
+        return state.lastPlayer != playerModel.id
+    }
+
     private fun fetchGameState() {
         viewModelScope.launch {
             while (state.lastPlayer == playerModel.id) {

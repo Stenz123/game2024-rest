@@ -1,5 +1,6 @@
 package com.example.game2024.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,13 +10,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import com.example.game2024.gameEngine.GameDirection
 import com.example.game2024.gameEngine.GameViewModel
+import com.example.game2024.gameEngine.PlayerModel
 import kotlin.math.abs
 
 @Composable
 fun UiBoard(viewModel: GameViewModel, modifier: Modifier = Modifier) {
+    val background = if (!viewModel.isActivePlayer()) {
+       Color.Red
+    }else {
+        Color.White
+    }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -38,6 +46,7 @@ fun UiBoard(viewModel: GameViewModel, modifier: Modifier = Modifier) {
                     }
                 )
             }
+            .background(background)
     ) {
         Column {
             val state = viewModel.state

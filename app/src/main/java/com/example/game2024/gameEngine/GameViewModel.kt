@@ -23,6 +23,7 @@ class GameViewModel: ViewModel() {
         viewModelScope.launch {
             while (state.lastPlayer == playerModel.id) {
                 try {
+                    state = GameState()
                     state = RetrofitInstance.api.getGameState()
                     Log.d("GameViewModel", "fetchGameState: $state")
                 } catch (e: Exception) {

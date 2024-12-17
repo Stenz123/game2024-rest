@@ -23,8 +23,9 @@ class GameViewModel: ViewModel() {
         viewModelScope.launch {
             while (state.lastPlayer == playerModel.id) {
                 try {
+                    val remoteState = RetrofitInstance.api.getGameState()
                     state = GameState()
-                    state = RetrofitInstance.api.getGameState()
+                    state = remoteState
                     Log.d("GameViewModel", "fetchGameState: $state")
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -57,6 +58,7 @@ class GameViewModel: ViewModel() {
             println(it)
         }
         state = state.copy(board = game2048Engine.board, lastPlayer = playerModel.id)
+        game2048Engine.board = state.board.map { it.toMutableList() }.toMutableList()
         updateGameState()
     }
 

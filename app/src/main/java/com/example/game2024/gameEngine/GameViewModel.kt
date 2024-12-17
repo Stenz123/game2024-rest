@@ -15,10 +15,10 @@ class GameViewModel: ViewModel() {
     val game2048Engine = Game2048Engine()
 
     init {
-        fetchTodos()
+        fetchGameState()
     }
 
-    private fun fetchTodos() {
+    private fun fetchGameState() {
         viewModelScope.launch {
             while (state.lastPlayer != playerModel.id) {
                 try {
@@ -35,6 +35,7 @@ class GameViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 state = RetrofitInstance.api.updateGameState(state)
+                fetchGameState()
             } catch (e: Exception) {
                 e.printStackTrace()
             }

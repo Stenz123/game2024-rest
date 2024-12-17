@@ -32,6 +32,7 @@ class GameViewModel: ViewModel() {
                 }
                 delay(1000)
             }
+            game2048Engine.board = state.board.map { it.toMutableList() }.toMutableList()
         }
     }
 
